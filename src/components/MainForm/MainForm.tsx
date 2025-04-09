@@ -6,10 +6,14 @@ import { PlayCircleIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContex';
+import { getNextCycle } from '../../utils/getNextCycle';
 
 export function MainForm() {
-  const { setState } = useTaskContext();
+  const { state, setState } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+
+  // Ciclos
+  const nextCycle = getNextCycle(state.currentCycle);
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,13 +44,14 @@ export function MainForm() {
         ...prevState,
         config: { ...prevState.config },
         acctiveTask: newTask,
-        currentCycle: 1,
+        currentCycle: nextCycle,
         secondsRemaining, // quando a chave e o valor é igual, não é necessário passar o :valor
         formattedSecondsRemaining: '00:00',
         tasks: [...prevState.tasks, newTask],
       };
     });
   }
+
   return (
     <form onSubmit={handleCreateNewTask} className='form' action=''>
       <div className='formRow'>
