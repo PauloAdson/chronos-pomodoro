@@ -6,11 +6,12 @@ import {
   SunIcon,
 } from 'lucide-react';
 import styles from './styles.module.css';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { RouterLink } from '../RouterLink/RouterLink';
 
 type AvailableThemes = 'dark' | 'light';
 
-export const Menu = () => {
+export function Menu() {
   const [theme, setTheme] = useState<AvailableThemes>(() => {
     const storageTheme =
       (localStorage.getItem('theme') as AvailableThemes) || 'dark';
@@ -26,6 +27,7 @@ export const Menu = () => {
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) {
     event.preventDefault();
+
     setTheme((prevTheme) => {
       const nextTheme = prevTheme === 'dark' ? 'light' : 'dark';
       return nextTheme;
@@ -35,47 +37,46 @@ export const Menu = () => {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    return () => {};
   }, [theme]);
 
   return (
     <nav className={styles.menu}>
-      <a
+      <RouterLink
         className={styles.menuLink}
-        href='#'
+        href='/'
         aria-label='Ir para a Home'
         title='Ir para a Home'
       >
         <HouseIcon />
-      </a>
+      </RouterLink>
 
-      <a
+      <RouterLink
         className={styles.menuLink}
-        href='#'
+        href='/history/'
         aria-label='Ver Histórico'
         title='Ver Histórico'
       >
         <HistoryIcon />
-      </a>
+      </RouterLink>
 
-      <a
+      <RouterLink
         className={styles.menuLink}
-        href='#'
+        href='/settings/'
         aria-label='Configurações'
         title='Configurações'
       >
         <SettingsIcon />
-      </a>
+      </RouterLink>
 
       <a
-        onClick={handleThemeChange}
         className={styles.menuLink}
         href='#'
         aria-label='Mudar Tema'
         title='Mudar Tema'
+        onClick={handleThemeChange}
       >
         {nextThemeIcon[theme]}
       </a>
     </nav>
   );
-};
+}

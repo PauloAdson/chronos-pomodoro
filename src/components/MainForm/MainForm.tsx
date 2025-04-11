@@ -1,18 +1,21 @@
-import { DefaultInput } from '../DefaultInput/DefaultInput';
-import { DefaultButton } from '../DefaultButton/DefaultButton';
-import { Cycles } from '../Cycles/Cycles';
-
 import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { TaskModel } from '../../models/TaskModel';
-import { useTaskContext } from '../../contexts/TaskContext/useTaskContex';
+
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
+import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContex';
+import { DefaultInput } from '../DefaultInput/DefaultInput';
+import { Cycles } from '../Cycles/Cycles';
+import { DefaultButton } from '../DefaultButton/DefaultButton';
+import { Tips } from '../Tips/Tips';
+import { showMessage } from '../../adapters/showMessage';
 
 export function MainForm() {
-  const { state, setState } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || '';
 
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle);
@@ -20,13 +23,14 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      alert('Digite o nome da tarefa');
+      showMessage.warn('Digite o nome da tarefa');
       return;
     }
 
@@ -40,36 +44,15 @@ export function MainForm() {
       type: nextCyleType,
     };
 
-    const secondsRemaining = newTask.duration * 60;
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
 
-    setState((prevState) => {
-      return {
-        ...prevState,
-        config: { ...prevState.config },
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaining, // Conferir
-        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining), // Conferir
-        tasks: [...prevState.tasks, newTask],
-      };
-    });
+    showMessage.success('Tarefa iniciada');
   }
 
   function handleInterruptTask() {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedSecondsRemaining: '00:00',
-        tasks: prevState.tasks.map((task) => {
-          if (prevState.activeTask && prevState.activeTask.id === task.id) {
-            return { ...task, interruptDate: Date.now() };
-          }
-          return task;
-        }),
-      };
-    });
+    showMessage.dismiss();
+    showMessage.error('Tarefa interrompida!');
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
   return (
@@ -82,11 +65,12 @@ export function MainForm() {
           placeholder='Digite algo'
           ref={taskNameInput}
           disabled={!!state.activeTask}
+          defaultValue={lastTaskName}
         />
       </div>
 
       <div className='formRow'>
-        <p>Próximo intervalo é de 25min</p>
+        <Tips />
       </div>
 
       {state.currentCycle > 0 && (
