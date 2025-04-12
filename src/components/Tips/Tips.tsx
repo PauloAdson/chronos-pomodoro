@@ -12,7 +12,7 @@ export function Tips() {
   const tipsForWhenActiveTask = {
     workTime: <span>Foque por {state.config.workTime}min</span>,
     shortBreakTime: <span>Descanse por {state.config.shortBreakTime}min</span>,
-    longBreakTime: <span>Descanso longo</span>,
+    longBreakTime: <span>Descanso longo {state.config.longBreakTime}min</span>,
   };
 
   const tipsForNoActiveTask = {
@@ -24,7 +24,9 @@ export function Tips() {
     shortBreakTime: (
       <span>Próximo descanso é de {state.config.shortBreakTime}min</span>
     ),
-    longBreakTime: <span>Próximo descanso será longo</span>,
+    longBreakTime: (
+      <span>Próximo descanso será longo {state.config.longBreakTime}min</span>
+    ),
   };
 
   return (
