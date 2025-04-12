@@ -1,7 +1,7 @@
+import { MainTemplate } from '../../templates/MainTemplate/MainTemplate';
 import { Container } from '../../components/Container/Container';
 import { GenericHtml } from '../../components/GenericHtml/GenericHtml';
 import { Heading } from '../../components/Heading/Heading';
-import { MainTemplate } from '../../templates/MainTemplate/MainTemplate';
 
 export function AboutPomodoro() {
   return (
@@ -18,7 +18,7 @@ export function AboutPomodoro() {
             garantir descansos para evitar o cansaço mental.
           </p>
 
-          <img src='https://placehold.co/1920x1080' alt='' />
+          {/* <img src='https://placehold.co/1920x1080' alt='' /> */}
 
           <h2>Como funciona o Pomodoro tradicional?</h2>
           <ul>

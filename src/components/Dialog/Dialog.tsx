@@ -1,6 +1,8 @@
-import { ToastContentProps } from 'react-toastify';
-import { ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
 import { DefaultButton } from '../DefaultButton/DefaultButton';
+
+import { ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
+
+import { ToastContentProps } from 'react-toastify';
 
 import styles from './styles.module.css';
 

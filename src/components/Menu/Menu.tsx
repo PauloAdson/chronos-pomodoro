@@ -5,8 +5,11 @@ import {
   SettingsIcon,
   SunIcon,
 } from 'lucide-react';
+
 import styles from './styles.module.css';
+
 import { useState, useEffect } from 'react';
+
 import { RouterLink } from '../RouterLink/RouterLink';
 
 type AvailableThemes = 'dark' | 'light';

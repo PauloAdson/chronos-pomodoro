@@ -1,10 +1,14 @@
 import { useEffect, useReducer, useRef } from 'react';
+
 import { initialTaskState } from './initialTaskState';
 import { TaskContext } from './TaskContext';
 import { taskReducer } from './taskReducer';
-import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
 import { TaskActionTypes } from './taskActions';
+
+import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
+
 import { TaskStateModel } from '../../models/TaskStateModel';
+
 import { loadBeep } from '../../utils/loadBeep';
 
 type TaskContextProviderProps = {

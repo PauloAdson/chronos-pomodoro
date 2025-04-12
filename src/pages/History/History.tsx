@@ -1,17 +1,23 @@
-import { TrashIcon } from 'lucide-react';
-
-import styles from './styles.module.css';
-import { formatDate } from '../../utils/formatDate';
-import { getTaskStatus } from '../../utils/getTaskStatus';
-import { sortTasks, SortTasksOptions } from '../../utils/sortTasks';
-import { useEffect, useState } from 'react';
-import { showMessage } from '../../adapters/showMessage';
-import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
-import { useTaskContext } from '../../contexts/TaskContext/useTaskContex';
-import { MainTemplate } from '../../templates/MainTemplate/MainTemplate';
 import { Container } from '../../components/Container/Container';
 import { Heading } from '../../components/Heading/Heading';
 import { DefaultButton } from '../../components/DefaultButton/DefaultButton';
+
+import styles from './styles.module.css';
+
+import { useEffect, useState } from 'react';
+
+import { formatDate } from '../../utils/formatDate';
+import { getTaskStatus } from '../../utils/getTaskStatus';
+import { sortTasks, SortTasksOptions } from '../../utils/sortTasks';
+
+import { showMessage } from '../../adapters/showMessage';
+
+import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContex';
+
+import { MainTemplate } from '../../templates/MainTemplate/MainTemplate';
+
+import { TrashIcon } from 'lucide-react';
 
 export function History() {
   const { state, dispatch } = useTaskContext();

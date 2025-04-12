@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
+
 import { Home } from '../../pages/Home/Home';
 import { AboutPomodoro } from '../../pages/AboutPomodoro/AboutPomodoro';
 import { NotFound } from '../../pages/NotFound/NotFound';
