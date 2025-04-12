@@ -22,7 +22,7 @@ export function Tips() {
       </span>
     ),
     shortBreakTime: (
-      <span>Próximo descaso é de {state.config.shortBreakTime}min</span>
+      <span>Próximo descanso é de {state.config.shortBreakTime}min</span>
     ),
     longBreakTime: <span>Próximo descanso será longo</span>,
   };
